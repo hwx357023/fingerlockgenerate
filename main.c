@@ -113,6 +113,20 @@ int get_possible_num()
 	return num;
 }
 
+
+unsigned int my_random()
+{
+	FILE *fd = fopen("/dev/urandom","r");
+	unsigned char c;
+
+	fread(&c,1,1,fd);
+
+	fclose(fd);
+
+	return c;
+}
+
+
 int main()
 {
 	time_t t;
@@ -121,7 +135,7 @@ int main()
 
 	t = time(NULL);
 
-	srandom(t);
+	my_srandom(t);
 
 	for(i=0; i<MAX; i++)
 	{
@@ -142,7 +156,7 @@ int main()
 
 		poss_num = get_possible_num();
 		if(poss_num == 0) break;
-		r = random()%poss_num;
+		r = my_random()%poss_num;
 
 		chose(r,&x,&y);
 		printf("%u%u ",x,y);
